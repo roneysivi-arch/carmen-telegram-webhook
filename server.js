@@ -110,6 +110,10 @@ app.get("/health", (req, res) => {
 
 app.post("/webhook", async (req, res) => {
   try {
+
+    console.log("Webhook recebido:");
+    console.log(JSON.stringify(req.body, null, 2));
+    
     const plate = findPlate(req.body);
 
     if (!plate) {
