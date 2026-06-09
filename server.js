@@ -38,6 +38,14 @@ function tentarParseJson(valor) {
 function buscarPlacaEmQualquerLugar(obj) {
   if (!obj || typeof obj !== "object") return null;
 
+if (obj?.plate?.unicodeText) {
+  return obj.plate.unicodeText.trim();
+}
+
+if (obj?.plate?.separatedText) {
+  return obj.plate.separatedText.trim();
+}
+  
   const possiveisCampos = [
     "plate",
     "Plate",
@@ -114,7 +122,7 @@ function montarObjetoDoEvento(req) {
   return dados;
 }
 
-app.post("/api/event", upload.any(), async (req, res) => {
+app.post(["/api/event", "/api/events"], upload.any(), async (req, res) => {
   console.log("=====================================");
   console.log("Evento recebido do Carmen em /api/event");
   console.log("Headers:", JSON.stringify(req.headers, null, 2));
